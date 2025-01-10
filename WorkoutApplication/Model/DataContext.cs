@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WorkoutApplication.Model;
 
-namespace WorkoutApplication.Model 
+namespace WorkoutApplication.Model
 {
     public class DataContext : DbContext
     {
