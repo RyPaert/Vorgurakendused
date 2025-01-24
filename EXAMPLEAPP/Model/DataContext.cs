@@ -11,4 +11,5 @@ public class DataContext : DbContext
 
     public DbSet<Speaker>? Speakers { get; set; }
     public DbSet<Event>? Events { get; set; }
+    public DbSet<Attendee> Attendees { get; set; }
 }

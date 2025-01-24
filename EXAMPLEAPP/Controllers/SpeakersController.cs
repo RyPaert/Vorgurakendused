@@ -56,6 +56,10 @@ public class SpeakersController : Controller
     [HttpPost]
     public ActionResult<Speaker> PostSpeaker(Speaker speaker)
     {
+        if (!speaker.Email.Contains("@"))
+        {
+            return BadRequest("Email needs to contain an @");
+        }
         var dbExercise = _context.Speakers!.Find(speaker.Id);
         if (dbExercise == null)
         {
