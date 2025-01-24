@@ -62,7 +62,15 @@ public class AttendeesController : ControllerBase
         {
             return BadRequest("Email needs to contain an @");
         }
-
+        var @event = _context.Events.Find(attendee.ID);
+        if (@event == null)
+        {
+            return NotFound();
+        }
+        if (attendee.RegistrationTime > @event.Date)
+        {
+            return BadRequest();
+        }
         var dbAttendee = _context.Attendees.Find(attendee.ID);
         if (dbAttendee == null)
         {
