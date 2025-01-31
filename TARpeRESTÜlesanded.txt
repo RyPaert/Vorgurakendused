@@ -1,0 +1,58 @@
+TARpeRESTÜlesanded
+
+Mis on REST API ja milleks seda kasutatakse?
+-REST API on arhitektuuristiil, mis määratleb veebiteenuste loomisel kasutavate piirangute komplekti.
+ Rest API on viis juurdeääsuks veebitenustele lihtsal ja paindlikul viisil
+
+Millised on REST API peamised põhimõtted?
+-Ühtne liides
+-Nõudmisel kood
+-Kihiline süsteem
+-Vahemällu salvestav
+-Olekuta ja kliendi-serveri lahtisidumine
+
+Milliseid HTTP-meetodeid kasutatakse REST API-s?
+-GET
+-POST
+-DELETE
+-PUT
+
+Milleks kasutatakse GET meetodit REST API-s?
+-Et saada infot serverilt
+
+Kuidas erineb POST meetod PUT meetodist?
+-POST method on parem uue info lisamiseks serverisse.
+-PUT method on parem eksisteeriva info uuendamiseks.
+
+Milleks kasutatakse DELETE meetodit REST API-s?
+-Et kustutada midagi oma serverist.
+
+Mis on CRUD operatsioonid ja kuidas need seostuvad HTTP-meetoditega?
+-CRUDi get, read, update, delete seostuvad HTTPi POST, GET, PUT, DELETE meetoditega.
+
+Mis on RESTful API ja kuidas see erineb tavalisest API-st?
+-RESTfulAPI on interface mida kaks arvutit kasutavat, et vahetada informatsiooni ohutult üle interneti.
+-See on ohutum.
+
+Mida tähendab stateless REST API kontekstis?
+-Kõik requestid saab täita independently ja sellel on kõik andmed, et täita task successfully.
+
+Mis on request headers ja miks neid kasutatakse?
+-Need hoiavad lisa informatsiooni resurssi või kliendi kohta.
+
+Kuidas edastatakse andmeid REST API kaudu (nt JSON, XML)?
+-Klient saadab HTTP requesti API-le ja, siis server saadab tagasi HTTP kodeeritud andmetega.
+
+Mis on status codes ja kuidas need aitavad API suhtluses?
+-See näitab kas request läks läbi, või kas sellega juhtus mingi failure.
+
+Nimeta mõned levinud HTTP vastuse koodid ja nende tähendused.
+-BadRequest - Cant or wont process because of an error
+-Unauthorized - When authentication has failed
+-OK - Succesful 
+Mis vahe on query parameters ja path parameters vahel?
+-Path parameters on mingi ressurssi leidmiseks, query parameetrid on data filteerimiseks.
+
+Kuidas testida REST API-d? Milliseid tööriistu selleks kasutatakse?
+-Postman :D
+
