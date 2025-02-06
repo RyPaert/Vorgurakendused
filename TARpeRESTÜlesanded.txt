@@ -1,5 +1,7 @@
 TARpeRESTÜlesanded
-
+-----------------------------------------------------------------------------------------------------
+1. Ülesanne
+-----------------------------------------------------------------------------------------------------
 Mis on REST API ja milleks seda kasutatakse?
 -REST API on arhitektuuristiil, mis määratleb veebiteenuste loomisel kasutavate piirangute komplekti.
  Rest API on viis juurdeääsuks veebitenustele lihtsal ja paindlikul viisil
@@ -55,4 +57,7 @@ Mis vahe on query parameters ja path parameters vahel?
 
 Kuidas testida REST API-d? Milliseid tööriistu selleks kasutatakse?
 -Postman :D
+-----------------------------------------------------------------------------------------------------
+2. Ülesanne
+-----------------------------------------------------------------------------------------------------
 
