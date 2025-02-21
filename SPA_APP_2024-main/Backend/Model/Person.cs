@@ -1,6 +1,6 @@
 ﻿namespace Backend.Model
 {
-    public class Person
+    public record Person
     {
         public int Id { get; set; }
         public string Name { get; set; }
