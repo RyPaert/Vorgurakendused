@@ -1,43 +1,91 @@
 <template>
-  <div class="about">
-    <h1>Personlist</h1>
-    <div class="personlist">
-      <DataTable :value="persons" v-if="persons.length > 0 ">
-        <Column field="id" header="Person id" style="color: white; "/>
-        <Column field="name" header="Name" style="color: white; "/>
-        <Column field="city" header="Linn" style="color: white; "/>
-        <Column field="region" header="Asukoht" style="color: white;"/>
-        <Column field="date" header="Kuupäev" style="color: white;"/>
-      </DataTable>
-      <div v-else>Isikud puuduvad</div>
+    <div class="about">
+        <h1>Personlist</h1>
+
+        <form @submit.prevent="addPerson">
+            <input v-model="newPerson.name" placeholder="Nimi" required />
+            <input v-model="newPerson.city" placeholder="Linn" required />
+            <input v-model="newPerson.region" placeholder="Regioon" required />
+            <input v-model="newPerson.date" type="date" required />
+            <button type="submit">Lisa inimene</button>
+        </form>
+
+        <div class="personlist">
+            <DataTable :value="persons" v-if="persons.length > 0">
+                <Column field="id" header="Person id" />
+                <Column field="name" header="Name" />
+                <Column field="city" header="Linn" />
+                <Column field="region" header="Asukoht" />
+                <Column field="date" header="Kuupäev" />
+                <Column header="Tegevused">
+                    <template #body="{ data }">
+                        <button @click="deletePerson(data.id)">Kustuta</button>
+                        <button @click="editPerson(data)">Muuda</button>
+                    </template>
+                </Column>
+            </DataTable>
+            <div v-else>Isikud puuduvad</div>
+        </div>
+
+        <div v-if="editingPerson" class="edit-form">
+            <h2>Muuda isikut</h2>
+            <form @submit.prevent="updatePerson">
+                <input v-model="editingPerson.name" placeholder="Nimi" required />
+                <input v-model="editingPerson.city" placeholder="Linn" required />
+                <input v-model="editingPerson.region" placeholder="Regioon" required />
+                <input v-model="editingPerson.date" type="date" required />
+                <button type="submit">Salvesta muudatused</button>
+            </form>
+        </div>
     </div>
-  </div>
 </template>
 
-
 <script setup lang="ts">
-import { type Person } from '@/models/person';
-import { usePersonsStore } from "@/stores/personsStore";
-import { storeToRefs } from "pinia";
-import { defineProps, onMounted, watch, ref  } from "vue";
-import { useRoute } from "vue-router";
+    import { usePersonsStore } from "@/stores/personsStore";
+    import { storeToRefs } from "pinia";
+    import { ref, watch, onMounted } from "vue";
+    import { useRoute } from "vue-router";
 
-const route = useRoute();
-
-watch(route, (to, from) => {
-  if (to.path !== from.path || to.query !== from.query) {
-    personsStore.load();
-  }
-}, { deep: true });
-
-defineProps<{ title: String }>();
+    const route = useRoute();
     const personsStore = usePersonsStore();
     const { persons } = storeToRefs(personsStore);
 
-onMounted(async () => {
-    personsStore.load();
-});
-</script>
-<style>
+    const newPerson = ref({
+        name: "",
+        city: "",
+        region: "",
+        date: ""
+    });
 
+    const editingPerson = ref<Person | null>(null);
+
+    onMounted(() => {
+        personsStore.load();
+    });
+
+    const addPerson = async () => {
+        if (!newPerson.value.name || !newPerson.value.city || !newPerson.value.region || !newPerson.value.date) {
+            alert("fill all fields");
+            return;
+        }
+        await personsStore.addPerson({ ...newPerson.value });
+        newPerson.value = { name: "", city: "", region: "", date: "" };
+    };
+
+    const deletePerson = async (id: number) => {
+        await personsStore.deletePerson(id);
+    };
+
+    const editPerson = (person: Person) => {
+        editingPerson.value = { ...person };
+    };
+
+    const updatePerson = async () => {
+        if (!editingPerson.value) return;
+        await personsStore.updatePerson(editingPerson.value);
+        editingPerson.value = null;
+    };
+</script>
+
+<style scoped>
 </style>
