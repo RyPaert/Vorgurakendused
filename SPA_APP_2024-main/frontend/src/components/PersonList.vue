@@ -11,20 +11,19 @@
         </form>
 
         <div class="personlist">
-            <DataTable :value="persons" v-if="persons.length > 0">
-                <Column field="id" header="Person id" />
+            <DataTable :value="persons">
+                <Column field="id" header="ID" />
                 <Column field="name" header="Name" />
                 <Column field="city" header="Linn" />
-                <Column field="region" header="Asukoht" />
+                <Column field="region" header="Regioon" />
                 <Column field="date" header="Kuupäev" />
                 <Column header="Tegevused">
                     <template #body="{ data }">
                         <button @click="deletePerson(data.id)">Kustuta</button>
-                        <button @click="editPerson(data)">Muuda</button>
+                        <button @click="editPerson(data)">Edit</button>
                     </template>
                 </Column>
             </DataTable>
-            <div v-else>Isikud puuduvad</div>
         </div>
 
         <div v-if="editingPerson" class="edit-form">
@@ -34,23 +33,31 @@
                 <input v-model="editingPerson.city" placeholder="Linn" required />
                 <input v-model="editingPerson.region" placeholder="Regioon" required />
                 <input v-model="editingPerson.date" type="date" required />
-                <button type="submit">Salvesta muudatused</button>
+                <button type="submit">Salvesta</button>
+                <button type="button" @click="editingPerson = null">Tühista</button>
             </form>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
-    import { usePersonsStore } from "@/stores/personsStore";
-    import { storeToRefs } from "pinia";
-    import { ref, watch, onMounted } from "vue";
-    import { useRoute } from "vue-router";
+    import { ref } from 'vue';
+    import DataTable from 'primevue/datatable';
+    import Column from 'primevue/column';
 
-    const route = useRoute();
-    const personsStore = usePersonsStore();
-    const { persons } = storeToRefs(personsStore);
+    interface Person {
+        id: number;
+        name: string;
+        city: string;
+        region: string;
+        date: string;
+    }
 
-    const newPerson = ref({
+    const persons = ref<Person[]>([
+        { id: 1, name: "Eesnimi Perenimi", city: "Tallinn", region: "Harjumaa", date: "2023-01-01" }
+    ]);
+
+    const newPerson = ref<Omit<Person, 'id'>>({
         name: "",
         city: "",
         region: "",
@@ -59,33 +66,29 @@
 
     const editingPerson = ref<Person | null>(null);
 
-    onMounted(() => {
-        personsStore.load();
-    });
-
-    const addPerson = async () => {
-        if (!newPerson.value.name || !newPerson.value.city || !newPerson.value.region || !newPerson.value.date) {
-            alert("fill all fields");
-            return;
-        }
-        await personsStore.addPerson({ ...newPerson.value });
+    const addPerson = () => {
+        persons.value.push({
+            id: persons.value.length + 1,
+            ...newPerson.value
+        });
         newPerson.value = { name: "", city: "", region: "", date: "" };
     };
 
-    const deletePerson = async (id: number) => {
-        await personsStore.deletePerson(id);
+    const deletePerson = (id: number) => {
+        persons.value = persons.value.filter(p => p.id !== id);
     };
 
     const editPerson = (person: Person) => {
         editingPerson.value = { ...person };
     };
 
-    const updatePerson = async () => {
+    const updatePerson = () => {
         if (!editingPerson.value) return;
-        await personsStore.updatePerson(editingPerson.value);
+        const index = persons.value.findIndex(p => p.id === editingPerson.value?.id);
+        if (index !== -1) {
+            persons.value[index] = { ...editingPerson.value };
+        }
         editingPerson.value = null;
     };
-</script>
 
-<style scoped>
-</style>
+</script>

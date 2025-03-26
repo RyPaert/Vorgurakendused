@@ -60,4 +60,22 @@ Kuidas testida REST API-d? Milliseid tööriistu selleks kasutatakse?
 -----------------------------------------------------------------------------------------------------
 2. Ülesanne
 -----------------------------------------------------------------------------------------------------
+Docker on asi mis lubab developeritel testida ja luua rakendusi konteinerites, et neid saaks testida igal puul ja igates tingimustes.
+See teeb testimise lihtsamaks.
+Docker töötab nii, et sa packid oma programmi ja kõik selle tööks vajaliku konteinerisse ja siis seda saab kasutada kus iganes sul vaja on.
+(3)
+Kui sul on asjad konteinerites, siis sul on kergem leida probleeme, sest sa saad tükk tüki haaval isoleerida osasid sellest.
+Dockerit sageli kasutatakse koos pilve rakendustega nagu Azure ja AWS oma lihtsuse tõttu.(5)
+Dockerit kasutades on väga kerge oma rakendust skaleerida, sest sa saad väga kergelt konteinreid lisada või eemaldada.
+VMi ja Dockeri vahe on see, et VM on palju rohkem ressursse kulutav.
+Containerid aga jagavad OS-i ja ei vaja enda oma kernelit.
+Containereid on palju rohkem portable, sellepärast, et sa ei pea igas kohas looma uut VMi.
+Küll aga on VMide kasutamine turvalisuse peale mõeldes parem valik, sest VMid on palju rohkem isoleeritud.
+Docker on väga hea testimise ja deploymise automatiseerimiseks.(11)
+Dockeri madalam ressurssi kasutus tuleb sellest, et see jagab hostiga OS-i.
+Dockeri turvalisuse parandamiseks on olemas ka erinevaid toole.
+Dockeriga debuggimine on lihtsalt sellepärast, et sa saad isoleerida erinevaid koodi osasid väga lihtsalt.
+-----------------------------------------------------------------------------------------------------
+3. Ülesanne (Lisatud png-na)
+-----------------------------------------------------------------------------------------------------
 
