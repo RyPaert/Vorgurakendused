@@ -17,7 +17,7 @@
                 <Column field="city" header="Linn" />
                 <Column field="region" header="Regioon" />
                 <Column field="date" header="Kuupäev" />
-                <Column header="Tegevused">
+                <Column header="Actions">
                     <template #body="{ data }">
                         <button @click="deletePerson(data.id)">Kustuta</button>
                         <button @click="editPerson(data)">Edit</button>
@@ -54,7 +54,7 @@
     }
 
     const persons = ref<Person[]>([
-        { id: 1, name: "Eesnimi Perenimi", city: "Tallinn", region: "Harjumaa", date: "2023-01-01" }
+        
     ]);
 
     const newPerson = ref<Omit<Person, 'id'>>({
