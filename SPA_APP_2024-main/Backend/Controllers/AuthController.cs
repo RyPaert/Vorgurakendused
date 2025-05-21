@@ -31,7 +31,7 @@ namespace Backend.Controllers
                 issuer: "your_issuer",
                 audience: "your_audience",
                 claims: new List<Claim>(),
-                expires: DateTime.Now.AddMinutes(30),
+                expires: DateTime.Now.AddSeconds(25),
                 signingCredentials: creds);
 
             return new JwtSecurityTokenHandler().WriteToken(token);

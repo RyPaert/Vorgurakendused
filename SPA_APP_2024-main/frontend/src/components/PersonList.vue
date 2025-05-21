@@ -2,10 +2,11 @@
     <div class="about">
         <div v-if="!token" class="login-form">
             <h2>Login</h2>
-            <input v-model="username" placeholder="Username" required/>
-            <input v-model="password" type="password" placeholder="Password" required/>
+            <input v-model="username" placeholder="Username" required />
+            <input v-model="password" type="password" placeholder="Password" required />
             <button @click="login">Login</button>
         </div>
+
         <div v-else>
             <h1>Personlist</h1>
 
@@ -32,7 +33,10 @@
                     </Column>
                 </DataTable>
             </div>
-
+            <div>
+                <h2>Logout</h2>
+                <button @click="logout">Logout</button>
+            </div>
             <div v-if="editingPerson" class="edit-form">
                 <h2>Muuda isikut</h2>
                 <form @submit.prevent="updatePerson">
@@ -51,7 +55,7 @@
 
 <script setup lang="ts">
 
-    import { ref } from 'vue';
+    import { ref, onMounted } from 'vue';
     import DataTable from 'primevue/datatable';
     import Column from 'primevue/column';
 
@@ -82,10 +86,13 @@
             ...newPerson.value
         });
         newPerson.value = { name: "", city: "", region: "", date: "" };
+        SavePersonsToLocalStorage();
     };
 
     const deletePerson = (id: number) => {
         persons.value = persons.value.filter(p => p.id !== id);
+        SavePersonsToLocalStorage();
+
     };
 
     const editPerson = (person: Person) => {
@@ -99,15 +106,30 @@
             persons.value[index] = { ...editingPerson.value };
         }
         editingPerson.value = null;
+        SavePersonsToLocalStorage();
+
     };
 
     const username = ref('')
     const password = ref('')
     const token = ref(localStorage.getItem('token'));
 
-    if (token.value) {
-        loadPersonsApi();
-    }
+    onMounted(() => {
+        if (token.value) {
+            loadPersonsApi();
+        }
+    });
+
+    const SavePersonsToLocalStorage = () => {
+        localStorage.setItem('persons', JSON.stringify(persons.value));
+    };
+
+    const loadPersonsFromLocalStorage = () => {
+        const saved = localStorage.getItem('persons');
+        if (saved) {
+            persons.value = JSON.parse(saved);
+        }
+    };
 
     const login = async () => {
         const response = await fetch('https://localhost:7295/api/auth/login',
@@ -148,5 +170,10 @@
             token.value = null;
         }
     }
+    const logout = () => {
+        localStorage.removeItem('token');
+        token.value = null;
+    };
+
 
 </script>
