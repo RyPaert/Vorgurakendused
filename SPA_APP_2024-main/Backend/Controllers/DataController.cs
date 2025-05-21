@@ -9,6 +9,7 @@ namespace Backend.Controllers
     public class DataController : ControllerBase
     {
         [HttpGet]
+        [Authorize]
         public IActionResult GetData()
         {
             // Your protected data retrieval logic here
@@ -16,3 +17,5 @@ namespace Backend.Controllers
         }
     }
 }
+
+

@@ -25,7 +25,7 @@ builder.Services.AddDbContext<DataContext>(options =>
             ValidateIssuerSigningKey = true,
             ValidIssuer = "your_issuer",
             ValidAudience = "your_audience",
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("your_secret_key"))
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("your_secret_key_your_secret_key_your_secret_key"))
         };
     });
 
@@ -73,3 +73,5 @@ void EnsureDatabaseCreated(IServiceProvider services){
     var context = scope.ServiceProvider.GetRequiredService<DataContext>();
     context.Database.EnsureCreated();
 }
+
+

@@ -104,8 +104,13 @@
     const username = ref('')
     const password = ref('')
     const token = ref(localStorage.getItem('token'));
+
+    if (token.value) {
+        loadPersonsApi();
+    }
+
     const login = async () => {
-        const response = await fetch('http://localhost:5000/api/auth/login',
+        const response = await fetch('https://localhost:7295/api/auth/login',
             {
             method: 'POST',
             headers: {
@@ -122,20 +127,20 @@
             localStorage.setItem('token', data.token);
             token.value = data.token;
 
-            await loadPersons();
+            await loadPersonsApi();
         } else {
-            alert("Login failed");
+            alert("IM GONNA CRASHOUT AAAAAAAAAAAAAAAA");
         }
     };
     const loadPersonsApi = async () => {
-        const response = await fetch('http://localhost:5000/api/auth/login', {
+        const response = await fetch('http://localhost:7295/api/events', {
             headers: {
-                'Authroization': 'Bearer ${token.value}'
+                'Authorization': `Bearer ${token.value}`,
             }
         });
 
         if (response.ok) {
-            const data = await respnose.json();
+            const data = await response.json();
             persons.value = data.persons ?? [];
         }
         else {

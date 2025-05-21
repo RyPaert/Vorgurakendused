@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("WorkoutApplication")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f1418f7bf76707a31c9865e21f828e36733387af")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1db608f2eb711fc33657c5fc6b9185223aadfa08")]
 [assembly: System.Reflection.AssemblyProductAttribute("WorkoutApplication")]
 [assembly: System.Reflection.AssemblyTitleAttribute("WorkoutApplication")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

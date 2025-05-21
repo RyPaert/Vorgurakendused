@@ -4,7 +4,8 @@ using backend.Model;
 
 namespace backend.Controllers;
 
-[ApiController] [Route("api/[controller]")] 
+[ApiController] 
+[Route("api/[controller]")] 
 public class EventsController : ControllerBase {
     private readonly DataContext context;
     public EventsController(DataContext c)  {

@@ -15,7 +15,7 @@ namespace Backend.Controllers
         [HttpPost("login")]
         public IActionResult Login([FromBody] Login login)
         {
-            if (login.Username == "test" && login.Password == "test")
+            if (login.Username == "string" && login.Password == "string")
             { 
                 var token = GenerateJwtToken();
                 return Ok(new { token });
@@ -24,7 +24,7 @@ namespace Backend.Controllers
         }
         private string GenerateJwtToken()
         {
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("your_secret_key"));
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("your_secret_key_your_secret_key_your_secret_key"));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
             var token = new JwtSecurityToken(
