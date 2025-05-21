@@ -1,20 +1,27 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using Backend.Model;
+using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Backend.Controllers
 {
+    [ApiController]
+    [Route("api/[controller]")]
     public class AuthController : ControllerBase
     {
         [HttpPost("login")]
-        public IActionResult Login()
+        public IActionResult Login([FromBody] Login login)
         {
-            var token = GenerateJwtToken();
-            return Ok(new { token });
+            if (login.Username == "test" && login.Password == "test")
+            { 
+                var token = GenerateJwtToken();
+                return Ok(new { token });
+            }
+            return Unauthorized();
         }
-
         private string GenerateJwtToken()
         {
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("your_secret_key"));
@@ -31,3 +38,5 @@ namespace Backend.Controllers
         }
     }
 }
+
+
