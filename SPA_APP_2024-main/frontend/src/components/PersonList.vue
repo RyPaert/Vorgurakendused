@@ -45,7 +45,7 @@
                 </form>
             </div>
         </div>
-
+    </div>
         
 </template>
 
@@ -104,5 +104,44 @@
     const username = ref('')
     const password = ref('')
     const token = ref(localStorage.getItem('token'));
+    const login = async () => {
+        const response = await fetch('http://localhost:5000/api/auth/login',
+            {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                username: username.value,
+                password: password.value
+            })
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            localStorage.setItem('token', data.token);
+            token.value = data.token;
+
+            await loadPersons();
+        } else {
+            alert("Login failed");
+        }
+    };
+    const loadPersonsApi = async () => {
+        const response = await fetch('http://localhost:5000/api/auth/login', {
+            headers: {
+                'Authroization': 'Bearer ${token.value}'
+            }
+        });
+
+        if (response.ok) {
+            const data = await respnose.json();
+            persons.value = data.persons ?? [];
+        }
+        else {
+            localStorage.removeItem('token')
+            token.value = null;
+        }
+    }
 
 </script>
